@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Привет: {{ name }}</h1>
+    <h1>Роутинг: {{ router }}</h1>
+    <h1>Приветствие: {{ greeting }}</h1>
+    <h1>Сервис: {{ service }}</h1>
+    <hr>
+    <h1>{{ name|length }}</h1>
+    <h1>{{ name|greet }}</h1>
+{% endblock %}

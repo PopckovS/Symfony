@@ -11,9 +11,17 @@ class DefaultController
 {
 
     /**
+     * @Route("/")
+     */
+    public function index()
+    {
+        return new Response("Hello!");
+    }
+
+    /**
      * @Route("/hello/{name}")
      */
-    public function index($name)
+    public function hello($name)
     {
         return new Response("Hello! $name" );
     }
