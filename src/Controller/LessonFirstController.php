@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Psr\Log\LoggerInterface;
@@ -40,6 +43,28 @@ class LessonFirstController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/notFound")
+     */
+    public function notFound()
+    {
+        throw $this->createNotFoundException('The product does not exist');
+    }
+
+
+
+    /**
+     * @Route("/Request")
+     */
+    public function request(Request $request)
+    {
+//        $page = $request->query->get('page', 1);
+
+        return new Response(
+            "<pre>$request</pre>"
+        );
+    }
 
 }
 

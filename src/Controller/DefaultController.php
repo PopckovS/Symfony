@@ -38,4 +38,5 @@ class DefaultController
             '<html><body>Lucky number: '.$number.'</body></html>'
         );
     }
+
 }
