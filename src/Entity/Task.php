@@ -22,7 +22,10 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;   // поиска п
  *                  attributes={"order"={"planned_finished_at": "DESC"},
  *     "pagination_enabled"=false}
  *     )
- * @ApiFilter(SearchFilter::class, properties={"id":"exact", "title":"exact", "content":"exact"})
+ * @ApiFilter(
+ *          SearchFilter::class,
+ *          properties={"id":"exact", "title":"exact", "content":"exact"}
+ *      )
  *
  * @ApiFilter(DateFilter::class, properties={"planned_finished_at"})
  */
