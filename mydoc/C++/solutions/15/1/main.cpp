@@ -1,9 +1,11 @@
-#include <iostream>
-#include <time.h> // Для srand
+#include <iostream> // Для работы с терминалом
+#include <time.h>   // Для функции srand
 
+/** Пространства имен */
 using namespace std;
-const int N = 5,M = 5; // Размер матрицы
-//const int N, M; // Размер матрицы
+
+/** Начальная размерность массива */
+const int N = 10,M = 10; // Размер матрицы
 
 
 /** Вывод на экран массива */
@@ -13,8 +15,11 @@ void out(int mas[N][M])
     {
         for (int j(0); j<M; j++)
         {
-            if(mas[i][j]>=0)cout << " " << mas[i][j]<< "  ";
-            else cout << mas[i][j] << "  ";
+            if(mas[i][j]>=0){
+                cout << " " << mas[i][j]<< "  ";
+            }else{
+                cout << mas[i][j] << "  ";
+            }
         }
         cout << endl;
     }
@@ -45,7 +50,7 @@ void one(int mas[N][M])
             }
         }
     }
-    if(result<M+1)
+    if(result<(M+1))
     {
         cout << "Номер первого столбца содержащего нулевой элемент: " << result+1 << endl;
     }else {
@@ -54,17 +59,87 @@ void one(int mas[N][M])
 }
 
 
+/** Сортируем матрицу по убыванию эллементов столбцов */
+void BubbleSort(int mas[N][M])
+{
+    int temp;
+
+    for(int i=0; i<M; i++)
+    {
+        for(int j=0; j<N; j++)
+        {
+            for(int m=0; m<(M-1); m++)
+            {
+                if(mas[m][i] < mas[m+1][i])
+                {
+                    temp = mas[m][i];
+                    mas[m][i] = mas[m+1][i];
+                    mas[m+1][i] = temp;
+                }
+            }
+        }
+    }
+}
+
+void testingMatrix()
+{
+    const int N =10, M=10;
+    int mas[N][M];
+    bool verdict = true;
+    int testMax = 10;
+    int test;
+
+    int cicle = 0;
+
+    for (int m = 0; m < testMax; ++m)
+    {
+        random(mas);
+        BubbleSort(mas);
+        out(mas);
+        verdict = true;
+
+        for (int i = 0; i < M; ++i)
+        {
+            test = mas[0][i];
+            for (int j = 0; j < N; ++j)
+            {
+                cicle++;
+                if (test < mas[i][j]) {
+                    verdict = false;
+//                    break;
+                }else{
+                    verdict = true;
+                }
+            }
+        }
+
+        if (verdict){
+            cout << "Успех в попытке №" << m << endl;
+        }else{
+            cout << "Провал в попытке №" << m << endl;
+        }
+        cout << "cicle = " << cicle << endl;
+    }
+}
+
+
 /** Главная функция для запуска программы */
 int main()
 {
-//    setlocale(LC_ALL, "Russian");
+    setlocale(LC_ALL, "Russian");
     srand(time(NULL));
 
     int mas[N][M];
     random(mas);
+    cout << "Выводим матрицу" << endl;
     out(mas);
     one(mas);
+    BubbleSort(mas);
+    cout << "Выводим отсортированную по столбцам матрицу" << endl;
+    out(mas);
 
-//    system("pause>NUL");
+    testingMatrix();
+
+
     return 0;
 }

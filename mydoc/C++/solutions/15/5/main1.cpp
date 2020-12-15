@@ -1,8 +1,17 @@
-#include "stdafx.h"
+//#include "stdafx.h"
 #include "stdio.h"
 #include "locale.h"
-#include "conio.h"
+//#include "conio.h"
+//#include "curses.h"
+//#include "ncurses"
 #include <iostream>
+
+
+//#include <TCHAR.h>
+#include <cstring>
+#include <typeinfo>
+// !!!!  испрользования strcpy
+
 using namespace std;
 
 /**Структура для формирования списка*/
@@ -22,6 +31,7 @@ Train *pend; //Указатель на конец списка
 
 //Функция прорисовки меню
 void menu();
+
 //Функция формирования первого элемента списка
 Train* first(int t_num, char* p_nazn, char* v_otpr);
 //Функция вставки элемента в упорядоченный список
@@ -50,7 +60,9 @@ void hline();
 
 
 /** Главная функция программы */
-int _tmain(int argc, _TCHAR* argv[])
+// !!!
+//int _tmain(int argc, _TCHAR* argv[])
+int main(int argc, char* argv[])
 {
     setlocale(LC_ALL,"");
     pbeg = 0; //Инициализация указателя на первый элемент списка
@@ -154,8 +166,16 @@ void add_sort(Train **pbeg, Train **pend, int t_num, char*p_nazn, char* v_otpr)
 Train* find(Train *const pbeg, int t_num)
 {
     Train *pv = pbeg;
+
     while (pv)
     {
+//        cout << "=======";
+//        cout << typeid(pv).name();
+//        cout << "=======";
+//        cout << typeid(pv->train_num).name();
+//        cout << "=======";
+//        cout << typeid(t_num).name();
+//        cout << "=======";
         if (pv->train_num == t_num){
             pv = pv->next;
         }
@@ -198,7 +218,9 @@ bool find_time(Train* const pbeg, char* v_otpr)
     {
         if (strcmp(pv->v_otpr, v_otpr)==0)
         {
-            pv->p_nazn, pv->v_otpr);
+            find=true;
+            //Вывод на экран найденного элемента
+            printf("%5d %20s %10s\n", pv->train_num,pv->p_nazn, pv->v_otpr);
         }
         pv = pv->next;
     }
@@ -235,7 +257,9 @@ void vvod()
     int n;
     int t_num;
     char p_nazn[20];
+//    string p_nazn[20];
     char v_otpr[10];
+//    string v_otpr[10];
 
     //Ввод количества добавляемых записей
     cout<<"Введите кол-во добавляемых записей в список =";
@@ -246,12 +270,18 @@ void vvod()
     {
         cout<<"\nВведите номер поезда\n";
         cin>>t_num;
+
         cout<<"Введите имя пункта назначения\n";
         fflush(stdin);
-        gets(p_nazn);
+//        gets(p_nazn);
+//        cin.getline(p_nazn,20);
+        cin>> p_nazn;
+
         cout<<"Введите время отправления\n";
         fflush(stdin);
-        gets(v_otpr);
+//        gets(v_otpr);
+//        cin.getline(v_otpr,10);
+        cin>> v_otpr;
 
         //Если в списке есть элементы - добавляется новый элемент с сортировкой списка
         if (pbeg) {
@@ -329,7 +359,10 @@ void search()
                 char p_nazn[20];
                 cout<<"\nВведите назначения\n";
                 fflush(stdin);
-                gets(p_nazn);
+//                gets(p_nazn);
+//                cin.getline(p_nazn,256);
+                cin>>p_nazn;
+
                 cout<<"\nРезультат поиска:\n";
                 if (!find_punkt(pbeg, p_nazn))
                     cout<<"Поезда с таким пунктом назначения не найдены\n";
@@ -338,7 +371,10 @@ void search()
                 char v_otpr[10];
                 cout<<"\nВведите время отправления\n";
                 fflush(stdin);
-                gets(v_otpr);
+//                gets(v_otpr);
+//                cin.getline(v_otpr,256);
+                cin>>v_otpr;
+
                 cout<<"\nРезультат поиска:\n";
                 if (!find_time(pbeg, v_otpr))
                     cout<<"Поезда с таким временем отправления не найдены\n";
